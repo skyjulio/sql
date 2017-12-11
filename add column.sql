@@ -10,7 +10,7 @@ ALTER TABLE AspNetUsers
   ADD ULTIMO_ACESSO datetime NULL 
 
 
--- SELECT * FROM ta_local_lote WHERE DT_EXCLUSAO_LOGICA IS NOT NULL 
+-- SELECT * FROM ta_local_lote WHERE DT_EXCLUSAO_LOGICA IS NOT NULL  
 
 --use teras  
 
