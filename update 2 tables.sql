@@ -1,0 +1,33 @@
+
+SELECT        TOP (100) PERCENT DATEADD(hour, DATEDIFF(hour, 0, dbo.TP_TELEATENDIMENTO.DT_CADASTRO), 0) AS TimeStampHour, COUNT(*) AS TOTAL_POR_HORA, dbo.TA_AGENCIA.NM_SIGLA
+FROM            dbo.TP_TELEATENDIMENTO INNER JOIN
+                         dbo.AspNetUsers ON dbo.TP_TELEATENDIMENTO.COD_USUARIO_TELEATENDIMENTO = dbo.AspNetUsers.COD_USUARIO INNER JOIN
+                         dbo.TA_AGENCIA ON dbo.AspNetUsers.COD_ORGAO_ORIGEM = dbo.TA_AGENCIA.COD_AGENCIA
+WHERE        (YEAR(dbo.TP_TELEATENDIMENTO.DT_CADASTRO) = 2017) AND (dbo.AspNetUsers.COD_ORGAO_ORIGEM IN (2, 4))
+and  TP_TELEATENDIMENTO.DT_CADASTRO > =  convert(date,getdate()) 
+and TP_TELEATENDIMENTO.DT_CADASTRO <  dateadd(d,1,convert(date,getdate())) 
+
+GROUP BY DATEADD(hour, DATEDIFF(hour, 0, dbo.TP_TELEATENDIMENTO.DT_CADASTRO), 0), dbo.AspNetUsers.COD_ORGAO_ORIGEM, dbo.TA_AGENCIA.NM_SIGLA
+ORDER BY TimeStampHour
+
+
+select dateadd(d,-1,convert(date,getdate()))
+
+
+
+SELECT        
+DATEADD(hour, DATEDIFF(hour, 0, dbo.TP_TELEATENDIMENTO.DT_CADASTRO), 0) [HORA], 
+COUNT(*) [TOTAL_POR_HORA]
+--dbo.TA_AGENCIA.NM_SIGLA
+FROM            dbo.TP_TELEATENDIMENTO INNER JOIN
+                         dbo.AspNetUsers ON dbo.TP_TELEATENDIMENTO.COD_USUARIO_TELEATENDIMENTO = dbo.AspNetUsers.COD_USUARIO INNER JOIN
+                         dbo.TA_AGENCIA ON dbo.AspNetUsers.COD_ORGAO_ORIGEM = dbo.TA_AGENCIA.COD_AGENCIA
+WHERE        
+--(YEAR(dbo.TP_TELEATENDIMENTO.DT_CADASTRO) = 2017) AND (dbo.AspNetUsers.COD_ORGAO_ORIGEM IN (2, 4))
+  TP_TELEATENDIMENTO.DT_CADASTRO > =  convert(date,getdate()) 
+and TP_TELEATENDIMENTO.DT_CADASTRO <  dateadd(d,1,convert(date,getdate())) 
+
+GROUP BY 
+DATEADD(hour, DATEDIFF(hour, 0, dbo.TP_TELEATENDIMENTO.DT_CADASTRO), 0)
+--dbo.AspNetUsers.COD_ORGAO_ORIGEM, dbo.TA_AGENCIA.NM_SIGLA
+ORDER BY HORA
